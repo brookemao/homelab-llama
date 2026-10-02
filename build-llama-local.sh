@@ -12,6 +12,8 @@ UBUNTU_VERSION="26.04"
 ROCM_VERSION="10.0.0"
 # 26.04 images use the '-full' suffix (e.g. 10.0.0-full), not '-complete'.
 BASE_ROCM_DEV_CONTAINER="docker.io/rocm/dev-ubuntu-${UBUNTU_VERSION}:${ROCM_VERSION}-full"
+# Local GPU only: Radeon AI PRO R9700 (gfx1201). Fat build default trimmed for speed/size.
+ROCM_DOCKER_ARCH="gfx1201"
 # Dockerfile stages: full, light, server. Defaults to 'server' (last stage).
 TARGET="${TARGET:-server}"
 
@@ -30,6 +32,7 @@ podman build \
   --build-arg "UBUNTU_VERSION=${UBUNTU_VERSION}" \
   --build-arg "ROCM_VERSION=${ROCM_VERSION}" \
   --build-arg "BASE_ROCM_DEV_CONTAINER=${BASE_ROCM_DEV_CONTAINER}" \
+  --build-arg "ROCM_DOCKER_ARCH=${ROCM_DOCKER_ARCH}" \
   --target "${TARGET}" \
   -t "${IMAGE_NAME}" \
   -f "${DOCKERFILE}" \
