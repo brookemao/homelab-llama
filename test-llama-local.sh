@@ -114,11 +114,14 @@ echo "health: http://localhost:${PORT}/health"
 # presence 0.0, repeat 1.0, xhigh reasoning by default).
 # Note: -fa is an alias of --flash-attn, so it is passed once.
 # sudo: image is built into the system (rootful) podman storage.
+# LD_LIBRARY_PATH: the server stage does not carry the ROCm lib path,
+# so libggml-hip.so fails to load without it (shows as zero devices).
 sudo podman run --rm -it \
   --device /dev/kfd \
   --device /dev/dri \
   --group-add video \
   --ipc=host \
+  -e LD_LIBRARY_PATH=/opt/rocm/lib \
   -p "${PORT}:8080" \
   -v "${MODELS_DIR}:${MODELS_DIR}:ro" \
   "${IMAGE_NAME}" \
