@@ -4,7 +4,7 @@
 # Sampling defaults follow https://unsloth.ai/docs/models/qwen3.8 (thinking mode).
 set -euo pipefail
 
-IMAGE_NAME="${IMAGE_NAME:-llama-local}"
+IMAGE_NAME="${IMAGE_NAME:-localhost/llama-local:latest}"
 MODELS_DIR="${MODELS_DIR:-/home/llama/models}"
 PORT="${PORT:-8080}"
 MODEL="${MODEL:-}"
