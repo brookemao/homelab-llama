@@ -113,7 +113,8 @@ echo "health: http://localhost:${PORT}/health"
 # Sampling: Qwen3.8 thinking mode (temp 1.0, top_p 0.95, top_k 20, min_p 0.0,
 # presence 0.0, repeat 1.0, xhigh reasoning by default).
 # Note: -fa is an alias of --flash-attn, so it is passed once.
-podman run --rm -it \
+# sudo: image is built into the system (rootful) podman storage.
+sudo podman run --rm -it \
   --device /dev/kfd \
   --device /dev/dri \
   --group-add video \
