@@ -24,3 +24,14 @@ Build the `llama-local` container with podman (UBUNTU_VERSION=26.04, ROCM_VERSIO
 ```bash
 ./build-llama-local.sh
 ```
+
+## Test
+
+Run the freshly built `llama-local` image against models in `/home/llama/models`
+(Qwen3.8 thinking-mode sampling + q8_0 KV cache, flash-attn, draft-mtp speculative decoding):
+
+```bash
+./test-llama-local.sh
+./test-llama-local.sh --model Qwen3.8-27B-UD-Q4_K_XL.gguf
+./test-llama-local.sh -- --verbose
+```
