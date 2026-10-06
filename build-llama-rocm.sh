@@ -67,7 +67,8 @@ grep -q -- "-DGGML_NATIVE=${GGML_NATIVE}" "${PATCHED_DOCKERFILE}" || {
   exit 1
 }
 
-podman build \
+# sudo: build into the system (rootful) podman storage.
+sudo podman build \
   --build-arg "UBUNTU_VERSION=${UBUNTU_VERSION}" \
   --build-arg "ROCM_VERSION=${ROCM_VERSION}" \
   --build-arg "BASE_ROCM_DEV_CONTAINER=${BASE_ROCM_DEV_CONTAINER}" \

@@ -59,7 +59,8 @@ grep -q -- '-DGGML_VULKAN=ON' "${PATCHED_DOCKERFILE}" || {
   exit 1
 }
 
-podman build \
+# sudo: build into the system (rootful) podman storage.
+sudo podman build \
   --build-arg "UBUNTU_VERSION=${UBUNTU_VERSION}" \
   --target "${TARGET}" \
   -t "${IMAGE_NAME}" \
