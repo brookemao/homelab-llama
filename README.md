@@ -19,19 +19,25 @@ git submodule update --remote --merge
 
 ## Build
 
-Build the `llama-local` container with podman (UBUNTU_VERSION=26.04, ROCM_VERSION=10.0.0):
+Build the `llama-rocm` container with podman (UBUNTU_VERSION=26.04, ROCM_VERSION=10.0.0,
+`gfx1201` only):
 
 ```bash
-./build-llama-local.sh
+./build-llama-rocm.sh
 ```
 
-## Test
-
-Run the freshly built `llama-local` image against models in `/home/llama/models`
-(Qwen3.8 thinking-mode sampling + q8_0 KV cache, flash-attn, draft-mtp speculative decoding):
+Build the `llama-vulkan` container with podman:
 
 ```bash
-./test-llama-local.sh
-./test-llama-local.sh --model Qwen3.8-27B-UD-Q4_K_XL.gguf
-./test-llama-local.sh -- --verbose
+./build-llama-vulkan.sh
 ```
+
+Both builds patch their upstream Dockerfile (`.devops/rocm.Dockerfile` /
+`.devops/vulkan.Dockerfile`) at build time so the submodule stays pristine,
+forcing local-only tuning shared via `build-llama-common.sh`:
+
+- `GGML_BACKEND_DL=OFF` (static backends, no dlopen `.so` at runtime)
+- `GGML_CPU_ALL_VARIANTS=OFF` (no fat CPU binaries)
+- `GGML_NATIVE=ON` (tuned to the build host CPU; build host == run host)
+
+Images are therefore not portable to other CPUs.
