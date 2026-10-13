@@ -1,3 +1,6 @@
 [submodule "llama.cpp"]
 	path = llama.cpp
 	url = https://github.com/ggml-org/llama.cpp
+[submodule "llama-cpp-rdna-boosts"]
+	path = llama-cpp-rdna-boosts
+	url = git@github.com:stew675/llama-cpp-rdna-boosts.git
