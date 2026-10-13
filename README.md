@@ -17,6 +17,21 @@ Update the llama.cpp submodule version to the latest:
 git submodule update --remote --merge
 ```
 
+## RDNA boosts
+
+Apply the `llama-cpp-rdna-boosts` patch set to the `llama.cpp` submodule
+(strict `git am` via `llama-cpp-rdna-boosts/scripts/apply-all.sh`, checked
+out at the baseline pinned in `release.json` on a fresh `rdna-boosts`
+branch):
+
+```bash
+./apply-rdna-boosts.sh
+```
+
+Re-running deletes nothing by default: if the `rdna-boosts` branch already
+exists in the submodule, pass `--force` to drop and re-create it. Override
+the branch name with `--branch NAME` (or `RDNA_BRANCH` in the environment).
+
 ## Build
 
 Build the `llama-rocm` container with podman (UBUNTU_VERSION=26.04, ROCM_VERSION=10.0.0,

@@ -1,4 +1,5 @@
 # Enforce LF line endings for shell scripts, manifests, and policy sources
+* text=auto eol=lf
 *.sh text eol=lf
 *.pp text eol=lf
 *.epp text eol=lf
